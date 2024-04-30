@@ -17,7 +17,7 @@ typedef int OSQPInt;       /* for indices */
 
 
 # ifndef OSQP_USE_FLOAT         // Doubles
-typedef double OSQPFloat; /* for numerical values  */
+typedef __float128 OSQPFloat; /* for numerical values  */
 # else                  // Floats
 typedef float OSQPFloat;  /* for numerical values  */
 # endif /* ifndef OSQP_USE_FLOAT */

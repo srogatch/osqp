@@ -103,9 +103,9 @@ extern const char * OSQP_ERROR_MESSAGE[];
 # define OSQP_SIGMA                 (1E-06)
 # define OSQP_ALPHA                 (1.6)
 
-# define OSQP_RHO_MIN               (1e-06)
+# define OSQP_RHO_MIN               (1e-10)
 # define OSQP_RHO_MAX               (1e06)
-# define OSQP_RHO_TOL               (1e-04) ///< tolerance for detecting if an inequality is set to equality
+# define OSQP_RHO_TOL               (1e-08) ///< tolerance for detecting if an inequality is set to equality
 # define OSQP_RHO_EQ_OVER_RHO_INEQ  (1e03)
 
 #ifdef OSQP_ALGEBRA_CUDA

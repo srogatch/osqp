@@ -233,15 +233,7 @@ if(OSQP_ALGEBRA_CUDA)
   # Locate the individual CUDA libraries and create targets for them
   find_package(CUDAToolkit)
 
-  # sm_75 -> Turing support
-  if(OSQP_USE_FLOAT)
-    set(CMAKE_CUDA_ARCHITECTURES 52 75)
-    # set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} --gpu-architecture=compute_52 --gpu-code=sm_52,sm_75")
-  else()
-    # To use doubles we need compute capability 6.0 for atomic operations
-    set(CMAKE_CUDA_ARCHITECTURES 60 75)
-    # set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} --gpu-architecture=compute_60 --gpu-code=sm_60,sm_75")
-  endif()
+  set(CMAKE_CUDA_ARCHITECTURES 80 86 89 90 CACHE STRING "CUDA Compute Capabilities" FORCE)
 endif()
 
 
