@@ -40,7 +40,7 @@ static OSQPInt write_vecf(FILE*            f,
   if (n && vecf) {
     fprintf(f, "OSQPFloat %s[%" OSQP_INT_FMT "] = {\n", name, n);
     for (i = 0; i < n; i++) {
-      fprintf(f, "  (OSQPFloat)%.20f,\n", (double)vecf[i]);
+      fprintf(f, "  (OSQPFloat)%.20lf,\n", (double)vecf[i]);
     }
     fprintf(f, "};\n");
   }
@@ -177,27 +177,27 @@ static OSQPInt write_settings(FILE*               f,
   fprintf(f, "  %" OSQP_INT_FMT ",\n", settings->warm_starting);
   fprintf(f, "  %" OSQP_INT_FMT ",\n", settings->scaling);
   fprintf(f, "  0,\n"); // polishing
-  fprintf(f, "  (OSQPFloat)%.20f,\n", (double)settings->rho);
+  fprintf(f, "  (OSQPFloat)%.20lf,\n", (double)settings->rho);
   fprintf(f, "  %" OSQP_INT_FMT ",\n", settings->rho_is_vec);
-  fprintf(f, "  (OSQPFloat)%.20f,\n", (double)settings->sigma);
-  fprintf(f, "  (OSQPFloat)%.20f,\n", (double)settings->alpha);
+  fprintf(f, "  (OSQPFloat)%.20lf,\n", (double)settings->sigma);
+  fprintf(f, "  (OSQPFloat)%.20lf,\n", (double)settings->alpha);
   fprintf(f, "  %" OSQP_INT_FMT ",\n", settings->cg_max_iter);
   fprintf(f, "  %" OSQP_INT_FMT ",\n", settings->cg_tol_reduction);
-  fprintf(f, "  (OSQPFloat)%.20f,\n", (double)settings->cg_tol_fraction);
+  fprintf(f, "  (OSQPFloat)%.20lf,\n", (double)settings->cg_tol_fraction);
   fprintf(f, "  %u,\n", settings->cg_precond);
   fprintf(f, "  %" OSQP_INT_FMT ",\n", settings->adaptive_rho);
   fprintf(f, "  %" OSQP_INT_FMT ",\n", settings->adaptive_rho_interval);
-  fprintf(f, "  (OSQPFloat)%.20f,\n", (double)settings->adaptive_rho_fraction);
-  fprintf(f, "  (OSQPFloat)%.20f,\n", (double)settings->adaptive_rho_tolerance);
+  fprintf(f, "  (OSQPFloat)%.20lf,\n", (double)settings->adaptive_rho_fraction);
+  fprintf(f, "  (OSQPFloat)%.20lf,\n", (double)settings->adaptive_rho_tolerance);
   fprintf(f, "  %" OSQP_INT_FMT ",\n", settings->max_iter);
-  fprintf(f, "  (OSQPFloat)%.20f,\n", (double)settings->eps_abs);
-  fprintf(f, "  (OSQPFloat)%.20f,\n", (double)settings->eps_rel);
-  fprintf(f, "  (OSQPFloat)%.20f,\n", (double)settings->eps_prim_inf);
-  fprintf(f, "  (OSQPFloat)%.20f,\n", (double)settings->eps_dual_inf);
+  fprintf(f, "  (OSQPFloat)%.20lf,\n", (double)settings->eps_abs);
+  fprintf(f, "  (OSQPFloat)%.20lf,\n", (double)settings->eps_rel);
+  fprintf(f, "  (OSQPFloat)%.20lf,\n", (double)settings->eps_prim_inf);
+  fprintf(f, "  (OSQPFloat)%.20lf,\n", (double)settings->eps_dual_inf);
   fprintf(f, "  %" OSQP_INT_FMT ",\n", settings->scaled_termination);
   fprintf(f, "  %" OSQP_INT_FMT ",\n", settings->check_termination);
-  fprintf(f, "  (OSQPFloat)%.20f,\n", (double)settings->time_limit);
-  fprintf(f, "  (OSQPFloat)%.20f,\n", (double)settings->delta);
+  fprintf(f, "  (OSQPFloat)%.20lf,\n", (double)settings->time_limit);
+  fprintf(f, "  (OSQPFloat)%.20lf,\n", (double)settings->delta);
   fprintf(f, "  %" OSQP_INT_FMT ",\n", settings->polish_refine_iter);
   fprintf(f, "};\n\n");
 
@@ -220,12 +220,12 @@ static OSQPInt write_info(FILE*           f,
   fprintf(f, "  \"%s\",\n", OSQP_STATUS_MESSAGE[OSQP_UNSOLVED]);
   fprintf(f, "  %d,\n", OSQP_UNSOLVED);
   fprintf(f, "  0,\n"); // status_polish
-  fprintf(f, "  (OSQPFloat)%.20f,\n", (double)OSQP_INFTY); // obj_val
-  fprintf(f, "  (OSQPFloat)%.20f,\n", (double)OSQP_INFTY); // prim_res
-  fprintf(f, "  (OSQPFloat)%.20f,\n", (double)OSQP_INFTY); // dual_res
+  fprintf(f, "  (OSQPFloat)%.20lf,\n", (double)OSQP_INFTY); // obj_val
+  fprintf(f, "  (OSQPFloat)%.20lf,\n", (double)OSQP_INFTY); // prim_res
+  fprintf(f, "  (OSQPFloat)%.20lf,\n", (double)OSQP_INFTY); // dual_res
   fprintf(f, "  0,\n"); // iter (iteration count)
   fprintf(f, "  0,\n"); // rho_updates
-  fprintf(f, "  (OSQPFloat)%.20f,\n", (double)info->rho_estimate);
+  fprintf(f, "  (OSQPFloat)%.20lf,\n", (double)info->rho_estimate);
   fprintf(f, "  (OSQPFloat)0.0,\n"); // setup_time
   fprintf(f, "  (OSQPFloat)0.0,\n"); // solve_time
   fprintf(f, "  (OSQPFloat)0.0,\n"); // update_time
@@ -289,10 +289,10 @@ static OSQPInt write_scaling(FILE*              f,
   sprintf(name, "%sscaling_Einv", prefix);
   GENERATE_ERROR(write_OSQPVectorf(f, scaling->Einv, name))
   fprintf(f, "OSQPScaling %sscaling = {\n", prefix);
-  fprintf(f, "  (OSQPFloat)%.20f,\n", (double)scaling->c);
+  fprintf(f, "  (OSQPFloat)%.20lf,\n", (double)scaling->c);
   fprintf(f, "  &%sscaling_D,\n", prefix);
   fprintf(f, "  &%sscaling_E,\n", prefix);
-  fprintf(f, "  (OSQPFloat)%.20f,\n", (double)scaling->cinv);
+  fprintf(f, "  (OSQPFloat)%.20lf,\n", (double)scaling->cinv);
   fprintf(f, "  &%sscaling_Dinv,\n", prefix);
   fprintf(f, "  &%sscaling_Einv\n", prefix);
   fprintf(f, "};\n\n");
@@ -416,8 +416,8 @@ static OSQPInt write_linsys(FILE*               f,
     fprintf(f, "  OSQP_NULL,\n");
   }
 
-  fprintf(f, "  (OSQPFloat)%.20f,\n", (double)linsys->sigma);
-  fprintf(f, "  (OSQPFloat)%.20f,\n", (double)linsys->rho_inv);
+  fprintf(f, "  (OSQPFloat)%.20lf,\n", (double)linsys->sigma);
+  fprintf(f, "  (OSQPFloat)%.20lf,\n", (double)linsys->rho_inv);
   fprintf(f, "  %" OSQP_INT_FMT ",\n", n);
   fprintf(f, "  %" OSQP_INT_FMT ",\n", m);
   if (embedded > 1) {
@@ -591,7 +591,7 @@ static OSQPInt write_workspace(FILE*             f,
   }
   fprintf(f, "  (OSQPFloat)0.0,\n"); // scaled_prim_res
   fprintf(f, "  (OSQPFloat)0.0,\n"); // scaled_dual_res
-  fprintf(f, "  (OSQPFloat)%.20f,\n", (double)work->rho_inv);
+  fprintf(f, "  (OSQPFloat)%.20lf,\n", (double)work->rho_inv);
   fprintf(f, "};\n\n");
 
   return exitflag;
