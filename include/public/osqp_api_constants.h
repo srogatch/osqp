@@ -103,7 +103,7 @@ extern const char * OSQP_ERROR_MESSAGE[];
 # define OSQP_SIGMA                 (1E-06)
 # define OSQP_ALPHA                 (1.6)
 
-# define OSQP_RHO_MIN               (1e-10)
+# define OSQP_RHO_MIN               (1e-6)
 # define OSQP_RHO_MAX               (1e06)
 # define OSQP_RHO_TOL               (1e-08) ///< tolerance for detecting if an inequality is set to equality
 # define OSQP_RHO_EQ_OVER_RHO_INEQ  (1e03)
@@ -162,7 +162,7 @@ extern const char * OSQP_ERROR_MESSAGE[];
 # endif
 
 # ifndef OSQP_NAN
-#  define OSQP_NAN ((OSQPFloat)0x7fc00000UL)  // not a number
+#  define OSQP_NAN (nanq("")) //((OSQPFloat)0x7fc00000UL)  // not a number
 # endif
 
 # ifndef OSQP_INFTY
@@ -170,7 +170,7 @@ extern const char * OSQP_ERROR_MESSAGE[];
 // Multiplying two floats that are in the order of 1e20 results in an overflow
 #  define OSQP_INFTY ((OSQPFloat)1e17)
 #else
-#  define OSQP_INFTY ((OSQPFloat)1e30)        // infinity
+#  define OSQP_INFTY ((OSQPFloat)1e55)        // infinity
 #endif
 # endif /* ifndef OSQP_INFTY */
 

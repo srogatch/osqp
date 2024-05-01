@@ -171,6 +171,7 @@ if(OSQP_USE_FLOAT)
   message(STATUS "Using single precision floating-point")
 else()
   message(STATUS "Using double precision floating-point")
+  link_libraries(quadmath)
 endif()
 
 if(NOT (CMAKE_SIZEOF_VOID_P EQUAL 8))

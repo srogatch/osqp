@@ -7,6 +7,7 @@
 
 // cmake generated compiler flags
 #include "osqp_configure.h"
+#include <quadmath.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -56,8 +57,8 @@ extern "C" {
 
 #  include <math.h>
 #  ifndef OSQP_USE_FLOAT // Doubles
-#   define c_sqrt sqrt
-#   define c_fmod fmod
+#   define c_sqrt sqrtq
+#   define c_fmod fmodq
 #  else          // Floats
 #   define c_sqrt sqrtf
 #   define c_fmod fmodf

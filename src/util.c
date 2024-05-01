@@ -115,17 +115,17 @@ void print_setup_header(const OSQPSolver* solver) {
   c_print(",\n          ");
 
   c_print("eps_abs = %.1e, eps_rel = %.1e,\n          ",
-          settings->eps_abs, settings->eps_rel);
+          (double)settings->eps_abs, (double)settings->eps_rel);
   c_print("eps_prim_inf = %.1e, eps_dual_inf = %.1e,\n          ",
-          settings->eps_prim_inf, settings->eps_dual_inf);
-  c_print("rho = %.2e ", settings->rho);
+          (double)settings->eps_prim_inf, (double)settings->eps_dual_inf);
+  c_print("rho = %.2e ", (double)settings->rho);
 
   if (settings->adaptive_rho) {
     c_print("(adaptive)");
   }
   c_print(",\n          ");
   c_print("sigma = %.2e, alpha = %.2f, ",
-          settings->sigma, settings->alpha);
+          (double)settings->sigma, (double)settings->alpha);
   c_print("max_iter = %i\n", (int)settings->max_iter);
 
   if (settings->check_termination) {
@@ -137,7 +137,7 @@ void print_setup_header(const OSQPSolver* solver) {
   
 # ifdef OSQP_ENABLE_PROFILING
   if (settings->time_limit)
-    c_print("          time_limit: %.2e sec,\n", settings->time_limit);
+    c_print("          time_limit: %.2e sec,\n", (double)settings->time_limit);
 # endif /* ifdef OSQP_ENABLE_PROFILING */
 
   if (settings->scaling) {
@@ -174,19 +174,19 @@ void print_summary(OSQPSolver* solver) {
   OSQPWorkspace* work     = solver->work;
 
   c_print("%4i",     (int)info->iter);
-  c_print(" %12.4e", info->obj_val);
-  c_print("  %9.2e", info->prim_res);
-  c_print("  %9.2e", info->dual_res);
-  c_print("  %9.2e", settings->rho);
+  c_print(" %12.4e", (double)info->obj_val);
+  c_print("  %9.2e", (double)info->prim_res);
+  c_print("  %9.2e", (double)info->dual_res);
+  c_print("  %9.2e", (double)settings->rho);
 
 # ifdef OSQP_ENABLE_PROFILING
 
   if (work->first_run) {
     // total time: setup + solve
-    c_print("  %9.2es", info->setup_time + info->solve_time);
+    c_print("  %9.2es", (double)(info->setup_time + info->solve_time));
   } else {
     // total time: update + solve
-    c_print("  %9.2es", info->update_time + info->solve_time);
+    c_print("  %9.2es", (double)(info->update_time + info->solve_time));
   }
 # endif /* ifdef OSQP_ENABLE_PROFILING */
   c_print("\n");
@@ -200,9 +200,9 @@ void print_polish(OSQPSolver* solver) {
   OSQPWorkspace* work = solver->work;
 
   c_print("%4s",     "plsh");
-  c_print(" %12.4e", info->obj_val);
-  c_print("  %9.2e", info->prim_res);
-  c_print("  %9.2e", info->dual_res);
+  c_print(" %12.4e", (double)info->obj_val);
+  c_print("  %9.2e", (double)info->prim_res);
+  c_print("  %9.2e", (double)info->dual_res);
 
   // Different characters for windows/unix
 #if defined(IS_WINDOWS) && !defined(PYTHON)
@@ -214,12 +214,12 @@ void print_polish(OSQPSolver* solver) {
 # ifdef OSQP_ENABLE_PROFILING
   if (work->first_run) {
     // total time: setup + solve
-    c_print("  %9.2es", info->setup_time + info->solve_time +
-            info->polish_time);
+    c_print("  %9.2es", (double)(info->setup_time + info->solve_time +
+            info->polish_time));
   } else {
     // total time: update + solve
-    c_print("  %9.2es", info->update_time + info->solve_time +
-            info->polish_time);
+    c_print("  %9.2es", (double)(info->update_time + info->solve_time +
+            info->polish_time));
   }
 # endif /* ifdef OSQP_ENABLE_PROFILING */
   c_print("\n");
@@ -245,15 +245,15 @@ void print_footer(OSQPInfo* info,
 
   if ((info->status_val == OSQP_SOLVED) ||
       (info->status_val == OSQP_SOLVED_INACCURATE)) {
-    c_print("optimal objective:    %.4f\n", info->obj_val);
+    c_print("optimal objective:    %.4f\n", (double)info->obj_val);
   }
 
 # ifdef OSQP_ENABLE_PROFILING
-  c_print("run time:             %.2es\n", info->run_time);
+  c_print("run time:             %.2es\n", (double)info->run_time);
 # endif /* ifdef OSQP_ENABLE_PROFILING */
 
 # if OSQP_EMBEDDED_MODE != 1
-  c_print("optimal rho estimate: %.2e\n", info->rho_estimate);
+  c_print("optimal rho estimate: %.2e\n", (double)info->rho_estimate);
 # endif /* if OSQP_EMBEDDED_MODE != 1 */
   c_print("\n");
 }
@@ -336,7 +336,7 @@ void print_csc_matrix(const OSQPCscMatrix* M,
     if (row_start == row_stop) continue;
     else {
       for (i = row_start; i < row_stop; i++) {
-        c_print("\t[%3u,%3u] = %.3g\n", (int)M->i[i], (int)j, M->x[k++]);
+        c_print("\t[%3u,%3u] = %.3g\n", (int)M->i[i], (int)j, (double)M->x[k++]);
       }
     }
   }
@@ -357,7 +357,7 @@ void dump_csc_matrix(const OSQPCscMatrix* M,
       else {
         for (i = row_strt; i < row_stop; i++) {
           fprintf(f, "%d\t%d\t%20.18e\n",
-                  (int)M->i[i] + 1, (int)j + 1, M->x[k++]);
+                  (int)M->i[i] + 1, (int)j + 1, (double)M->x[k++]);
         }
       }
     }
@@ -378,7 +378,7 @@ void print_trip_matrix(const OSQPCscMatrix* M,
   c_print("%s :\n", name);
 
   for (k = 0; k < M->nz; k++) {
-    c_print("\t[%3u, %3u] = %.3g\n", (int)M->i[k], (int)M->p[k], M->x[k]);
+    c_print("\t[%3u, %3u] = %.3g\n", (int)M->i[k], (int)M->p[k], (double)M->x[k]);
   }
 }
 
@@ -395,11 +395,11 @@ void print_dns_matrix(const OSQPFloat* M,
     for (j = 0; j < n; j++) { // Cycle over columns
       if (j < n - 1) {
         // c_print("% 14.12e,  ", M[j*m+i]);
-        c_print("% .3g,  ", M[j * m + i]);
+        c_print("% .3g,  ", (double)M[j * m + i]);
 
       } else {
         // c_print("% 14.12e;  ", M[j*m+i]);
-        c_print("% .3g;  ", M[j * m + i]);
+        c_print("% .3g;  ", (double)M[j * m + i]);
       }
     }
 

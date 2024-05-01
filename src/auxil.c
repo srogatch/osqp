@@ -914,7 +914,7 @@ OSQPInt validate_data(const OSQPCscMatrix* P,
   for (j = 0; j < m; j++) {
     if (l[j] > u[j]) {
       c_eprint("Lower bound at index %d is greater than upper bound: %.4e > %.4e",
-               (int)j, l[j], u[j]);
+               (int)j, (double)l[j], (double)u[j]);
       return 1;
     }
   }
