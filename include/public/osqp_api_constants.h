@@ -99,14 +99,14 @@ extern const char * OSQP_ERROR_MESSAGE[];
 # define OSQP_POLISHING             (0)
 
 // ADMM parameters
-# define OSQP_RHO                   (0.1)
-# define OSQP_SIGMA                 (1E-06)
-# define OSQP_ALPHA                 (1.6)
+# define OSQP_RHO                   (0.1q)
+# define OSQP_SIGMA                 (1E-06q)
+# define OSQP_ALPHA                 (1.6q)
 
-# define OSQP_RHO_MIN               (1e-6)
-# define OSQP_RHO_MAX               (1e06)
-# define OSQP_RHO_TOL               (1e-08) ///< tolerance for detecting if an inequality is set to equality
-# define OSQP_RHO_EQ_OVER_RHO_INEQ  (1e03)
+# define OSQP_RHO_MIN               (1e-6q)
+# define OSQP_RHO_MAX               (1e06q)
+# define OSQP_RHO_TOL               (1e-08q) ///< tolerance for detecting if an inequality is set to equality
+# define OSQP_RHO_EQ_OVER_RHO_INEQ  (1e03q)
 
 #ifdef OSQP_ALGEBRA_CUDA
 # define OSQP_RHO_IS_VEC            (0)
@@ -117,7 +117,7 @@ extern const char * OSQP_ERROR_MESSAGE[];
 // CG parameters
 # define OSQP_CG_MAX_ITER           (20)
 # define OSQP_CG_TOL_REDUCTION      (10)
-# define OSQP_CG_TOL_FRACTION       (0.15)
+# define OSQP_CG_TOL_FRACTION       (0.15q)
 
 // adaptive rho logic
 # define OSQP_ADAPTIVE_RHO (1)
@@ -127,19 +127,19 @@ extern const char * OSQP_ERROR_MESSAGE[];
 #  define OSQP_ADAPTIVE_RHO_TOLERANCE (2.0)
 #else
 #  define OSQP_ADAPTIVE_RHO_INTERVAL  (0)
-#  define OSQP_ADAPTIVE_RHO_TOLERANCE (5.0)          ///< tolerance for adopting new rho; minimum ratio between new rho and the current one
+#  define OSQP_ADAPTIVE_RHO_TOLERANCE (5.0q)          ///< tolerance for adopting new rho; minimum ratio between new rho and the current one
 #endif
 
-# define OSQP_ADAPTIVE_RHO_FRACTION (0.4)           ///< fraction of setup time after which we update rho
+# define OSQP_ADAPTIVE_RHO_FRACTION (0.4q)           ///< fraction of setup time after which we update rho
 # define OSQP_ADAPTIVE_RHO_MULTIPLE_TERMINATION (4) ///< multiple of check_termination after which we update rho (if OSQP_ENABLE_PROFILING disabled)
 # define OSQP_ADAPTIVE_RHO_FIXED (100)              ///< number of iterations after which we update rho if termination_check  and OSQP_ENABLE_PROFILING are disabled
 
 // termination parameters
 # define OSQP_MAX_ITER              (4000)
-# define OSQP_EPS_ABS               (1E-3)
-# define OSQP_EPS_REL               (1E-3)
-# define OSQP_EPS_PRIM_INF          (1E-4)
-# define OSQP_EPS_DUAL_INF          (1E-4)
+# define OSQP_EPS_ABS               (1E-3q)
+# define OSQP_EPS_REL               (1E-3q)
+# define OSQP_EPS_PRIM_INF          (1E-10q)
+# define OSQP_EPS_DUAL_INF          (1E-10q)
 # define OSQP_SCALED_TERMINATION    (0)
 # define OSQP_TIME_LIMIT            (1e10)     ///< Disable time limit by default
 
@@ -149,7 +149,7 @@ extern const char * OSQP_ERROR_MESSAGE[];
 #  define OSQP_CHECK_TERMINATION    (25)
 #endif
 
-#  define OSQP_DELTA                (1E-6)
+#  define OSQP_DELTA                (1E-6q)
 #  define OSQP_POLISH_REFINE_ITER   (3)
 
 
@@ -170,22 +170,22 @@ extern const char * OSQP_ERROR_MESSAGE[];
 // Multiplying two floats that are in the order of 1e20 results in an overflow
 #  define OSQP_INFTY ((OSQPFloat)1e17)
 #else
-#  define OSQP_INFTY ((OSQPFloat)1e55)        // infinity
+#  define OSQP_INFTY ((OSQPFloat)1e55q)        // infinity
 #endif
 # endif /* ifndef OSQP_INFTY */
 
 # ifndef OSQP_DIVISION_TOL
-#  define OSQP_DIVISION_TOL (1.0 / OSQP_INFTY)
+#  define OSQP_DIVISION_TOL (1.0q / OSQP_INFTY)
 # endif
 
 
 # define OSQP_PRINT_INTERVAL 200
 
-# define OSQP_MIN_SCALING   (1e-04) ///< minimum scaling value
-# define OSQP_MAX_SCALING   (1e+04) ///< maximum scaling value
+# define OSQP_MIN_SCALING   (1e-04q) ///< minimum scaling value
+# define OSQP_MAX_SCALING   (1e+04q) ///< maximum scaling value
 
-# define OSQP_CG_TOL_MIN    (1E-7)
-# define OSQP_CG_POLISH_TOL (1e-5)
+# define OSQP_CG_TOL_MIN    (1E-7q)
+# define OSQP_CG_POLISH_TOL (1e-5q)
 
 
 #endif /* ifndef OSQP_API_CONSTANTS_H */
